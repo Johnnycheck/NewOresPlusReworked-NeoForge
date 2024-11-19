@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 10,
+  "experience": 0.7,
+  "ingredient": "neworesplusreworked:raw_sapphire",
+  "result": {
+    "id": "neworesplusreworked:sapphire_item"
+  }
+}

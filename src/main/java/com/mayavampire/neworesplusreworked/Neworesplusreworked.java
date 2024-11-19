@@ -5,15 +5,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -32,6 +29,10 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
+import java.rmi.registry.Registry;
+
+import static net.minecraft.world.item.ToolMaterial.DIAMOND;
+
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Neworesplusreworked.MODID)
 public class Neworesplusreworked {
@@ -47,16 +48,32 @@ public class Neworesplusreworked {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create ( Registries.CREATIVE_MODE_TAB , MODID );
 
     // Creates a new Block with the id "neworesplusreworked:example_block", combining the namespace and path
-    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock ( "example_block" , BlockBehaviour.Properties.of ().mapColor ( MapColor.STONE ) );
-    // Creates a new BlockItem with the id "neworesplusreworked:example_block", combining the namespace and path
-    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem ( "example_block" , EXAMPLE_BLOCK );
+    public static final DeferredBlock<Block> SAPPHIRE_BLOCK = BLOCKS.registerSimpleBlock ( "sapphire_block", BlockBehaviour.Properties.of ().sound ( SoundType.AMETHYST ).strength ( 3.0f, 10f).requiresCorrectToolForDrops () );
+    public static final DeferredItem<BlockItem> SAPPHIRE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem ( "sapphire_block_item", SAPPHIRE_BLOCK );
+    public static final DeferredItem<Item> SAPPHIRE_ITEM = ITEMS.registerSimpleItem ( "sapphire_item");
+    public static final DeferredBlock<Block> SAPPHIRE_ORE = BLOCKS.registerSimpleBlock ( "sapphire_ore", BlockBehaviour.Properties.of ().sound ( SoundType.AMETHYST ).strength ( 3.0f, 10f).requiresCorrectToolForDrops () );
+    public static final DeferredItem<BlockItem> SAPPHIRE_ORE_ITEM = ITEMS.registerSimpleBlockItem ( "sapphire_ore_item", SAPPHIRE_ORE );
+    public static final DeferredItem<Item> SAPPHIRE_AXE = ITEMS.registerSimpleItem ( "sapphire_axe" , new Item.Properties ().durability ( 19902 ).rarity ( Rarity.EPIC ));
+    public static final DeferredItem<Item> RAW_SAPPHIRE = ITEMS.registerSimpleItem ( "raw_sapphire" );
+    public static final DeferredBlock<Block> DEEPSLATE_SAPPHIRE_ORE = BLOCKS.registerSimpleBlock ( "deepslate_sapphire_ore", BlockBehaviour.Properties.of ().sound ( SoundType.AMETHYST ).strength ( 5.3f, 10f ).requiresCorrectToolForDrops () );
+    public static final DeferredItem<BlockItem> DEEPSLATE_SAPPHIRE_ORE_ITEM = ITEMS.registerSimpleBlockItem ( "deepslate_sapphire_ore_item", DEEPSLATE_SAPPHIRE_ORE );
+    public static final DeferredBlock<Block> NETHER_SAPPHIRE_ORE = BLOCKS.registerSimpleBlock ( "nether_sapphire_ore", BlockBehaviour.Properties.of ().sound ( SoundType.NETHERRACK ).strength ( 1f, 0.4f  ).requiresCorrectToolForDrops () );
+    public static final DeferredItem<BlockItem> NETHER_SAPPHIRE_ORE_ITEM = ITEMS.registerSimpleBlockItem ( "nether_sapphire_ore_item", NETHER_SAPPHIRE_ORE );
+    public static final DeferredItem<Item> SAPPHIRE_SWORD;
 
-    // Creates a new food item with the id "neworesplusreworked:example_id", nutrition 1 and saturation 2
-    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem ( "example_item" , new Item.Properties ().food ( new FoodProperties.Builder ().alwaysEdible ().nutrition ( 1 ).saturationModifier ( 2f ).build () ) );
+    static {
+        SAPPHIRE_SWORD = ITEMS.registerSimpleItem ( "sapphire_sword" );
+    }
 
     // Creates a creative tab with the id "neworesplusreworked:example_tab" for the example item, that is placed after the combat tab
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register ( "example_tab" , () -> CreativeModeTab.builder ().title ( Component.translatable ( "itemGroup.neworesplusreworked" ) ).withTabsBefore ( CreativeModeTabs.COMBAT ).icon ( () -> EXAMPLE_ITEM.get ().getDefaultInstance () ).displayItems ( (parameters , output) -> {
-        output.accept ( EXAMPLE_ITEM.get () ); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register ( "example_tab" , () -> CreativeModeTab.builder ().title ( Component.translatable ( "itemGroup.neworesplusreworked" ) ).withTabsBefore ( CreativeModeTabs.COMBAT ).icon ( () -> SAPPHIRE_ITEM.get ().getDefaultInstance () ).displayItems ( (parameters , output) -> {
+        output.accept ( SAPPHIRE_ITEM.get () );
+        output.accept ( SAPPHIRE_BLOCK_ITEM );
+        output.accept ( SAPPHIRE_ORE_ITEM );
+        output.accept (SAPPHIRE_AXE );
+        output.accept ( RAW_SAPPHIRE );
+        output.accept ( DEEPSLATE_SAPPHIRE_ORE_ITEM );
+        output.accept (NETHER_SAPPHIRE_ORE_ITEM);
     } ).build () );
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
@@ -73,7 +90,7 @@ public class Neworesplusreworked {
         CREATIVE_MODE_TABS.register ( modEventBus );
 
         // Register ourselves for server and other game events we are interested in.
-        // Note that this is necessary if and only if we want *this* class (Neworesplusreworked) to respond directly to events.
+        // Note that this is necessary if and only if we want *this* class (neworesplusreworked) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register ( this );
 
@@ -90,14 +107,13 @@ public class Neworesplusreworked {
 
         if (Config.logDirtBlock) LOGGER.info ( "DIRT BLOCK >> {}" , BuiltInRegistries.BLOCK.getKey ( Blocks.DIRT ) );
 
-        LOGGER.info ( Config.magicNumberIntroduction + Config.magicNumber );
+        LOGGER.info ( "{}{}" , Config.magicNumberIntroduction , Config.magicNumber );
 
-        Config.items.forEach ( (item) -> LOGGER.info ( "ITEM >> {}" , item.toString () ) );
     }
 
-    // Add the example block item to the building blocks tab
+    // Add the example blocks item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey () == CreativeModeTabs.BUILDING_BLOCKS) event.accept ( EXAMPLE_BLOCK_ITEM );
+    if (event.getTabKey ()== CreativeModeTabs.COMBAT) event.accept ( SAPPHIRE_BLOCK_ITEM );
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

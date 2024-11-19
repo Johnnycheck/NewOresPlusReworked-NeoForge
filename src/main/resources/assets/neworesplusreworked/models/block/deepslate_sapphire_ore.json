@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "neworesplusreworked:block/deepslate_sapphire_ore",
+    "up": "neworesplusreworked:block/deepslate_sapphire_ore",
+    "north": "neworesplusreworked:block/deepslate_sapphire_ore",
+    "east": "neworesplusreworked:block/deepslate_sapphire_ore",
+      "south": "neworesplusreworked:block/deepslate_sapphire_ore",
+    "west": "neworesplusreworked:block/deepslate_sapphire_ore",
+    "particle": "neworesplusreworked:block/deepslate_sapphire_ore"
+  },
+  "render_type": "solid"
+}

@@ -1,5 +1,10 @@
 {
-  "itemGroup.neworesplusreworked": "Example Mod Tab",
-  "block.neworesplusreworked.example_block": "Example Block",
-  "item.neworesplusreworked.example_item": "Example Item"
+  "itemGroup.neworesplusreworked": "NewOresPlusReworked",
+  "item.neworesplusreworked.sapphire_item": "Sapphire",
+  "block.neworesplusreworked.sapphire_block_item": "Block of Sapphire",
+  "block.neworesplusreworked.sapphire_ore_item": "Sapphire Ore",
+  "item.neworesplusreworked.sapphire_axe": "Sapphire Axe",
+  "item.neworesplusreworked.raw_sapphire": "Raw Sapphire",
+  "block.neworesplusreworked.deepslate_sapphire_ore_item": "Deepslate Sapphire Ore",
+  "block.neworesplusreworked.nether_sapphire_ore_item": "Nether Sapphire"
 }

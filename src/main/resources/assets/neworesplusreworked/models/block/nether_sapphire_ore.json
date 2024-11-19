@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "neworesplusreworked:block/nether_sapphire_ore",
+    "up": "neworesplusreworked:block/nether_sapphire_ore",
+    "north": "neworesplusreworked:block/nether_sapphire_ore",
+    "east": "neworesplusreworked:block/nether_sapphire_ore",
+      "south": "neworesplusreworked:block/nether_sapphire_ore",
+    "west": "neworesplusreworked:block/nether_sapphire_ore",
+    "particle": "neworesplusreworked:block/nether_sapphire_ore"
+  },
+  "render_type": "solid"
+}
