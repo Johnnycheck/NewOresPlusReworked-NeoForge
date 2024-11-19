@@ -1,1 +1,15 @@
-
+{
+    "homepage": "https://modrinth.com/mod/neworesplusreworked/versions",
+    "1.21.3":{
+            "1.0.0-snapshot-1.21.3": "Redid code and other Stuff",
+  "1.21.1": {
+          "1.0.1": "Nothing",
+  "1.21": {
+        "1.0.2": "Nothing", 
+        
+    },
+    "promos": {
+        "1.21.3-latest": "1.0.0-snapshot-1.21.3",
+        "1.21.1-recommended": "1.0.1"
+    }
+}
