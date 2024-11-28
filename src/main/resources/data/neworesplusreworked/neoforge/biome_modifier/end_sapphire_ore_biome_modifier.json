@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes":"#minecraft:is_end",
+  "features": "neworesplusreworked:end_sapphire_ore",
+  "step": "underground_ores"
+}
